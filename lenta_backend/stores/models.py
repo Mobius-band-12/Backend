@@ -1,3 +1,4 @@
+from django.contrib.gis.db import models as geo_models
 from django.db import models
 
 
@@ -35,3 +36,17 @@ class Store(models.Model):
     is_active = models.BooleanField(
         'Флаг активного магазина',
     )
+    location = geo_models.PointField(
+        'Географические координаты',
+        geography=True,
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = 'магазин (ТК)'
+        verbose_name_plural = 'магазины (ТК)'
+        ordering = ('pk',)
+
+    def __str__(self):
+        return self.name
+    
