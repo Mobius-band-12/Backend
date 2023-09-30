@@ -17,11 +17,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api.apps.ApiConfig',
-    'products.apps.ProductsConfig',
-    'sales.apps.SalesConfig',
-    'stores.apps.StoresConfig',
-    'users.apps.UsersConfig',
+    'api',
+    'products',
+    'sales',
+    'stores',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +62,8 @@ DATABASES = {
     }
 }
 
+
+AUTH_USER_MODEL = 'users.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
