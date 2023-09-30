@@ -64,7 +64,7 @@ class Forecast(models.Model):
         verbose_name='Товар',
         max_length=32,
     )
-    forecast = models.PositiveIntegerField(
+    forecast = models.JSONField(
         'Прогнозные продажи',
     )
 
