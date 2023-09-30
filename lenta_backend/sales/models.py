@@ -4,18 +4,18 @@ from products.models import Product
 
 
 class Sale(models.Model):
-    store_id = models.ForeignKey(
+    store = models.ForeignKey(
         Store,
-        to_field='store_id',
+        to_field='store',
         on_delete=models.CASCADE,
-        verbose_name='id магазина',
+        verbose_name='Магазин',
         max_length=32,
     )
-    product_id = models.ForeignKey(
+    sku = models.ForeignKey(
         Product,
-        to_field='product_id',
+        to_field='sku',
         on_delete=models.CASCADE,
-        verbose_name='id товара',
+        verbose_name='Товар',
         max_length=32,
     )
     date = models.DateField(
@@ -24,16 +24,16 @@ class Sale(models.Model):
     is_promo = models.BooleanField(
         'Флаг промо',
     )
-    sales_in_units = models.PositiveSmallIntegerField(
-        'Число проданных товаров без признака промо',
+    sales_units = models.PositiveSmallIntegerField(
+        'Число продаж без признака промо',
     )
-    promo_sales_in_units = models.PositiveSmallIntegerField(
-        'Число проданных товаров с признаком промо',
+    sales_units_promo = models.PositiveSmallIntegerField(
+        'Число продаж с признаком промо',
     )
-    sales_in_rub = models.PositiveIntegerField(
+    sales_rub = models.PositiveIntegerField(
         'Продажи без признака промо в руб.',
     )
-    promo_sales_in_rub = models.PositiveIntegerField(
+    sales_rub_promo = models.PositiveIntegerField(
         'Продажи с признаком промо в руб.',
     )
 
@@ -47,22 +47,22 @@ class Sale(models.Model):
 
 
 class Forecast(models.Model):
-    store_id = models.ForeignKey(
+    store = models.ForeignKey(
         Store,
-        to_field='store_id',
+        to_field='store',
         on_delete=models.CASCADE,
-        verbose_name='id магазина',
-        max_length=32,
-    )
-    product_id = models.ForeignKey(
-        Product,
-        to_field='product_id',
-        on_delete=models.CASCADE,
-        verbose_name='id товара',
+        verbose_name='Магазин',
         max_length=32,
     )
     forecast_date = models.DateField(
         'Дата прогнозной продажи',
+    )
+    sku = models.ForeignKey(
+        Product,
+        to_field='sku',
+        on_delete=models.CASCADE,
+        verbose_name='Товар',
+        max_length=32,
     )
     forecast = models.PositiveIntegerField(
         'Прогнозные продажи',
@@ -70,8 +70,9 @@ class Forecast(models.Model):
 
     class Meta:
         verbose_name = 'прогнозные продажи'
-        verbose_name_plural = 'прогноные продажи'
+        verbose_name_plural = 'прогнозные продажи'
         ordering = ('pk',)
 
     def __str__(self):
-        return f'Прогнозные продажи товара {self.product_id} за {self.forecast_date}'
+        return f'''Прогнозные продажи товара {self.product_id}
+                за {self.forecast_date}'''
