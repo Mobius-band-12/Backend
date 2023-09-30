@@ -11,7 +11,7 @@ class Store(models.Model):
         'Город',
         max_length=32,
     )
-    dividion = models.CharField(
+    division = models.CharField(
         'Подразделение',
         max_length=32,
     )
