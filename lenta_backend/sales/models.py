@@ -64,8 +64,8 @@ class Forecast(models.Model):
     forecast_date = models.DateField(
         'Дата прогнозной продажи',
     )
-    forecast = models.JSONField(            #Или DictField?
-        'Прогнозная продажа',
+    forecast = models.PositiveIntegerField(
+        'Прогнозные продажи',
     )
 
     class Meta:
