@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import mixins
+from stores.models import Store
 
-# Create your views here.
+
+class StoreViewSet(mixins.ListModelMixin):
+    queryset = Store.objects.all()
+    serializer_class = serializers.StoreSerializer
