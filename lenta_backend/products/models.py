@@ -5,6 +5,7 @@ class Product(models.Model):
     sku = models.CharField(
         'SKU товара',
         max_length=32,
+        unique=True,
     )
     group = models.CharField(
         'Группа товара',

@@ -1,7 +1,8 @@
-from django.contrib.auth import models
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
-class User(models.AbstractUser):
+class User(AbstractUser):
     first_name = models.CharField(
         'Имя',
         max_length=150,
@@ -23,6 +24,8 @@ class User(models.AbstractUser):
         'Логин',
         blank=False,
         null=False,
+        max_length=32,
+        unique=True,
     )
     position = models.CharField(
         'Должность',
