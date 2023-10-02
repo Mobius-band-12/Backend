@@ -5,6 +5,7 @@ class Product(models.Model):
     sku = models.CharField(
         'SKU товара',
         max_length=32,
+        unique=True,
     )
     group = models.CharField(
         'Группа товара',
@@ -29,4 +30,4 @@ class Product(models.Model):
         ordering = ('pk',)
 
     def __str__(self):
-        return self.name
+        return self.sku
