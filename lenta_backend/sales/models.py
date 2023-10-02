@@ -63,6 +63,7 @@ class Forecast(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Товар',
         max_length=32,
+        null=True
     )
     forecast = models.JSONField(
         'Прогнозные продажи',
@@ -74,5 +75,5 @@ class Forecast(models.Model):
         ordering = ('pk',)
 
     def __str__(self):
-        return f'''Прогнозные продажи товара {self.product_id}
+        return f'''Прогнозные продажи товара {self.sku}
                 за {self.forecast_date}'''
