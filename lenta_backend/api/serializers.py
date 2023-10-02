@@ -36,14 +36,21 @@ class SaleSerializer(serializers.ModelSerializer):
         model = Sale
 
 
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ('sku', 'group', 'category', 'subcategory', 'uom')
+
+
 class ForecastSerializer(serializers.ModelSerializer):
     class Meta:
         model = Forecast
         fields = ('store', 'sku', 'forecast_date', 'forecast')
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class PostForecastSerializer(serializers.ModelSerializer):
+    forecast = serializers.JSONField()
+
     class Meta:
-        model = Product
-        fields = ('sku', 'group', 'category', 'subcategory', 'uom')
-             
+        model = Forecast
+        fields = ('store', 'forecast_date', 'forecast')

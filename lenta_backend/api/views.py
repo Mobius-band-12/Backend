@@ -28,7 +28,11 @@ class ForecastViewSet(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   viewsets.GenericViewSet):
     queryset = Forecast.objects.all()
-    serializer_class = serializers.ForecastSerializer
+        
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return serializers.PostForecastSerializer
+        return serializers.GetForecastSerializer
 
 
 class ProductViewSet(mixins.ListModelMixin,
