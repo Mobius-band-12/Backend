@@ -97,7 +97,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 
-    'PAGE_SIZE': 6,
+    'PAGE_SIZE': 20,
 }
 
 
@@ -107,7 +107,6 @@ DJOSER = {
     'LOGOUT_ON_PASSWORD_CHANGE': True,
     'SERIALIZERS': {
         'token_create': 'api.serializers.GetTokenSerializer',
-        'login': ''
     },
 }
 
