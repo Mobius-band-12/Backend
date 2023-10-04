@@ -17,12 +17,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'djoser',
     'api',
     'products',
     'sales',
     'stores',
     'users',
 ]
+
+GDAL_LIBRARY_PATH = 'C:/Dev/Backend/venv/Lib/site-packages/django/contrib/gis/gdal/libgdal.py'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
