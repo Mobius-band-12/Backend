@@ -16,5 +16,6 @@ router_v1.register('forecast', views.ForecastViewSet, basename='forecast')
 
 
 urlpatterns = [
+    path(API_V1 + 'auth/', include('djoser.urls.authtoken')),
     path(API_V1, include(router_v1.urls)),
 ]
