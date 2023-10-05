@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from .validators import validate_domain
 
 
 class User(AbstractUser):
@@ -17,6 +18,7 @@ class User(AbstractUser):
     )
     email = models.EmailField(
         'Адрес электронной почты',
+        validators=(validate_domain,),
         blank=False,
         null=False,
     )
