@@ -26,15 +26,19 @@ class Sale(models.Model):
     )
     sales_units = models.PositiveSmallIntegerField(
         'Число продаж без признака промо',
+        default=0,
     )
     sales_units_promo = models.PositiveSmallIntegerField(
         'Число продаж с признаком промо',
+        default=0,
     )
     sales_rub = models.PositiveIntegerField(
         'Продажи без признака промо в руб.',
+        default=0,
     )
     sales_rub_promo = models.PositiveIntegerField(
         'Продажи с признаком промо в руб.',
+        default=0,
     )
 
     class Meta:
