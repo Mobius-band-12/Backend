@@ -1,5 +1,6 @@
 from djoser import serializers as djoser_serializers
 from rest_framework import serializers
+
 from products.models import Product
 from stores.models import Store
 from sales.models import Sale, Forecast
@@ -33,6 +34,15 @@ class SaleSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('store', 'sku', 'date', 'is_promo', 'sales_units',
                   'sales_units_promo', 'sales_rub', 'sales_rub_promo')
+        model = Sale
+
+
+class FactSerializer(serializers.ModelSerializer):
+    total_sales_units = serializers.IntegerField()
+    total_sales_rub = serializers.IntegerField(required=False)
+
+    class Meta:
+        fields = ('date', 'total_sales_units', 'total_sales_rub')
         model = Sale
 
 
