@@ -66,6 +66,5 @@ TELEGRAM_TOKEN=<токен вашего бота>
 - Проект будет доступен по вашему IP-адресу.
 
 #### Авторы:
-Агукин Владимир - [https://github.com/s1gurr0s](https://github.com/s1gurr0s)
-
-Антипина Анастасия - [https://github.com/an-nastasiia](https://github.com/an-nastasiia)
+- Агукин Владимир - [https://github.com/s1gurr0s](https://github.com/s1gurr0s)
+- Антипина Анастасия - [https://github.com/an-nastasiia](https://github.com/an-nastasiia)
