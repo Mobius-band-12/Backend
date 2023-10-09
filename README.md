@@ -67,4 +67,5 @@ TELEGRAM_TOKEN=<токен вашего бота>
 
 #### Авторы:
 Агукин Владимир - [https://github.com/s1gurr0s](https://github.com/s1gurr0s)
+
 Антипина Анастасия - [https://github.com/an-nastasiia](https://github.com/an-nastasiia)
