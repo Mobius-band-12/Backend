@@ -1,13 +1,21 @@
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-1kom5wrg!6*jcmyo1!vokhfpp@$$bpj0t58ki2-2#&fg^*unqe'
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    default='django-insecure-1kom5wrg!6*jcmyo1!vokhfpp@$$bpj0t58ki2-2#&fg^*unqe'
+)
 
-DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = os.getenv('DEBUG', False),
+
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -63,8 +71,14 @@ WSGI_APPLICATION = 'lenta_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -119,6 +133,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
