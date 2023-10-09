@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Sale, Forecast
+
+from .models import Forecast, Sale
 
 
 @admin.register(Sale)

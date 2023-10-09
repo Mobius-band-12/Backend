@@ -1,6 +1,6 @@
 from django.db import models
-from stores.models import Store
 from products.models import Product
+from stores.models import Store
 
 
 class Sale(models.Model):

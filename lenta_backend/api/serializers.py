@@ -1,9 +1,8 @@
 from djoser import serializers as djoser_serializers
-from rest_framework import serializers
-
 from products.models import Product
+from rest_framework import serializers
+from sales.models import Forecast, Sale
 from stores.models import Store
-from sales.models import Sale, Forecast
 from users.models import User
 
 

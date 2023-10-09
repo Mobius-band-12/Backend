@@ -1,14 +1,15 @@
 from datetime import datetime, timedelta
+
 from django.db.models import Min, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from openpyxl import Workbook
-from rest_framework import decorators, mixins, viewsets, response, status
-
 from products.models import Product
+from rest_framework import decorators, mixins, response, status, viewsets
 from sales.models import Forecast, Sale
 from stores.models import Store
 from users.models import User
+
 from . import serializers
 
 
