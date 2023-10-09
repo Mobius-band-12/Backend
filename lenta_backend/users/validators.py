@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
 
 
-def validate_domain(value):
+def validate_domain(value: str) -> None:
     '''Функция-валидатор для проверки корпоративного домена @lenta.ru.'''
     error_msg = 'Используйте почтовый адрес на домене @lenta.ru'
     email_validator = EmailValidator(message=error_msg)

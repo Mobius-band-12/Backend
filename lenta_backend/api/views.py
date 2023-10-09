@@ -1,11 +1,13 @@
 from datetime import datetime, timedelta
+from typing import Dict, List, Union
 
 from django.db.models import Min, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from openpyxl import Workbook
 from products.models import Product
-from rest_framework import decorators, mixins, response, status, viewsets
+from rest_framework import (decorators, mixins, request, response, status,
+                            viewsets)
 from sales.models import Forecast, Sale
 from stores.models import Store
 from users.models import User
@@ -36,7 +38,9 @@ class SaleViewSet(mixins.ListModelMixin,
     queryset = Sale.objects.all()
     serializer_class = serializers.SaleSerializer
 
-    def get_sale_data(self, sku, start_date, end_date, is_rub_included=False):
+    def get_sale_data(self, sku: str, start_date: datetime,
+                      end_date: datetime, is_rub_included: bool) -> (
+                      Union[List[Dict[str, Union[int, str]]], List]):
         '''Метод для получения сериализованных данных о продажах.'''
         if start_date:
             query = Sale.objects.filter(
@@ -53,7 +57,7 @@ class SaleViewSet(mixins.ListModelMixin,
         return []
 
     @decorators.action(methods=['GET'], detail=False, url_path='21-days')
-    def sales_21_days(self, request):
+    def sales_21_days(self, request: request.HttpRequest) -> response.Response:
         '''Получение данных о продажах по паре товар-магазин за 21 день.'''
         store = get_object_or_404(
             Store, store=request.query_params.get('store')
@@ -77,7 +81,7 @@ class SaleViewSet(mixins.ListModelMixin,
                                  status=status.HTTP_200_OK)
 
     @decorators.action(methods=['GET'], detail=False, url_path='total')
-    def sales_total(self, request):
+    def sales_total(self, request: request.HttpRequest) -> response.Response:
         '''Получение данных о продажах товара по всем магазинам
         в штуках и рублях за весь период.'''
         sku = get_object_or_404(
