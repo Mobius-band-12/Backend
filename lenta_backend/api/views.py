@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from django.db.models import Min, Sum
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from openpyxl import Workbook
 from rest_framework import decorators, mixins, viewsets, response, status
 
 from products.models import Product
@@ -91,11 +93,52 @@ class ForecastViewSet(mixins.ListModelMixin,
                       mixins.CreateModelMixin,
                       viewsets.GenericViewSet):
     queryset = Forecast.objects.all()
+    serializer_class = serializers.ForecastSerializer
 
-    def get_serializer_class(self):
-        if self.action == 'create':
-            return serializers.PostForecastSerializer
-        return serializers.GetForecastSerializer
+    @decorators.action(methods=['GET'], detail=False, url_path='download')
+    def download_xlsx(self, request):
+        store = get_object_or_404(
+            Store, store=request.query_params.get('store')
+        ).store
+        sku = get_object_or_404(
+            Product, sku=request.query_params.get('sku')
+        ).sku
+        forecast_date = get_object_or_404(
+            Forecast, forecast_date=request.query_params.get('forecast_date')
+        ).forecast_date
+
+        forecast = Forecast.objects.filter(
+            store=store,
+            sku=sku
+        ).values('forecast')
+
+        serializer = serializers.DownloadForecastSerializer(forecast,
+                                                            many=True)
+
+        forecast = {key: value for sublist in serializer.data
+                    for key, value in sublist['forecast'].items()}
+
+        wb = Workbook()
+        ws = wb.active
+
+        ws['A1'] = 'Дата'
+        ws['B1'] = 'Продажи, шт.'
+
+        row_num = 2
+        for date, items in forecast.items():
+            ws.cell(row=row_num, column=1, value=date)
+            ws.cell(row=row_num, column=2, value=items)
+            row_num += 1
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-'
+                                'officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = (
+            f'attachment; filename="sales_{sku}_{forecast_date}.xlsx"'
+        )
+
+        wb.save(response)
+
+        return response
 
 
 class ProductViewSet(mixins.ListModelMixin,

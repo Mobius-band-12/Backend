@@ -53,14 +53,14 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ForecastSerializer(serializers.ModelSerializer):
+    forecast = serializers.JSONField()
+
     class Meta:
         model = Forecast
         fields = ('store', 'sku', 'forecast_date', 'forecast')
 
 
-class PostForecastSerializer(serializers.ModelSerializer):
-    forecast = serializers.JSONField()
-
+class DownloadForecastSerializer(serializers.ModelSerializer):
     class Meta:
         model = Forecast
-        fields = ('store', 'forecast_date', 'forecast')
+        fields = ('forecast',)
