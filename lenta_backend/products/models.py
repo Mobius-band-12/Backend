@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Product(models.Model):
+    '''Модель для хранения данных о товарах.'''
+
     sku = models.CharField(
         'SKU товара',
         max_length=32,

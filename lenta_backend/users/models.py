@@ -5,6 +5,8 @@ from .validators import validate_domain
 
 
 class User(AbstractUser):
+    '''Модель для хранения данных о пользователе.'''
+
     first_name = models.CharField(
         'Имя',
         max_length=150,

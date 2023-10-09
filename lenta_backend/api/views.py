@@ -15,22 +15,29 @@ from . import serializers
 
 class UserViewSet(mixins.RetrieveModelMixin,
                   viewsets.GenericViewSet):
+    '''Вьюсет для модели User.'''
+
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
 
 
 class StoreViewSet(mixins.ListModelMixin,
                    viewsets.GenericViewSet):
+    '''Вьюсет для модели Store.'''
+
     queryset = Store.objects.all()
     serializer_class = serializers.StoreSerializer
 
 
 class SaleViewSet(mixins.ListModelMixin,
                   viewsets.GenericViewSet):
+    '''Вьюсет для модели Sale.'''
+
     queryset = Sale.objects.all()
     serializer_class = serializers.SaleSerializer
 
     def get_sale_data(self, sku, start_date, end_date, is_rub_included=False):
+        '''Метод для получения сериализованных данных о продажах.'''
         if start_date:
             query = Sale.objects.filter(
                 sku=sku,
@@ -47,6 +54,7 @@ class SaleViewSet(mixins.ListModelMixin,
 
     @decorators.action(methods=['GET'], detail=False, url_path='21-days')
     def sales_21_days(self, request):
+        '''Получение данных о продажах по паре товар-магазин за 21 день.'''
         store = get_object_or_404(
             Store, store=request.query_params.get('store')
         ).store
@@ -70,6 +78,8 @@ class SaleViewSet(mixins.ListModelMixin,
 
     @decorators.action(methods=['GET'], detail=False, url_path='total')
     def sales_total(self, request):
+        '''Получение данных о продажах товара по всем магазинам
+        в штуках и рублях за весь период.'''
         sku = get_object_or_404(
             Product, sku=request.query_params.get('sku')
             ).sku
@@ -93,11 +103,14 @@ class SaleViewSet(mixins.ListModelMixin,
 class ForecastViewSet(mixins.ListModelMixin,
                       mixins.CreateModelMixin,
                       viewsets.GenericViewSet):
+    '''Вьюсет для модели Forecast.'''
+
     queryset = Forecast.objects.all()
     serializer_class = serializers.ForecastSerializer
 
     @decorators.action(methods=['GET'], detail=False, url_path='download')
     def download_xlsx(self, request):
+        '''Метод для скачивания xlsx-файла с прогнозными данными продаж.'''
         store = get_object_or_404(
             Store, store=request.query_params.get('store')
         ).store
@@ -144,5 +157,7 @@ class ForecastViewSet(mixins.ListModelMixin,
 
 class ProductViewSet(mixins.ListModelMixin,
                      viewsets.GenericViewSet):
+    '''Вьюсет для модели Product.'''
+
     queryset = Product.objects.all()
     serializer_class = serializers.ProductSerializer

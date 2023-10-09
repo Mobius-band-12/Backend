@@ -4,6 +4,8 @@ from stores.models import Store
 
 
 class Sale(models.Model):
+    '''Модель для хранения данных о фактических продажах.'''
+
     store = models.ForeignKey(
         Store,
         to_field='store',
@@ -51,6 +53,8 @@ class Sale(models.Model):
 
 
 class Forecast(models.Model):
+    '''Модель для хранения данных о прогнозных продажах.'''
+
     store = models.ForeignKey(
         Store,
         to_field='store',

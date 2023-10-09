@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Store(models.Model):
+    '''Модель для хранения данных о магазинах.'''
+
     store = models.CharField(
         'Магазин',
         max_length=32,
